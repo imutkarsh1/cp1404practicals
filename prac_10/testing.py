@@ -1,28 +1,5 @@
-class Car:
-    """Represent a Car object."""
-
-    def __init__(self, fuel=0):
-        """Initialise a Car instance."""
-        self.fuel = fuel
-        self._odometer = 0
-
-    def add_fuel(self, amount):
-        """Add amount to the car's fuel."""
-        self.fuel += amount
-
-    def drive(self, distance):
-        """Drive the car a given distance."""
-        if distance > self.fuel:
-            distance = self.fuel
-            self.fuel = 0
-        else:
-            self.fuel -= distance
-        self._odometer += distance
-        return distance
-
-    def get_odometer(self):
-        """Return the car's odometer reading."""
-        return self._odometer
+import doctest
+from prac_06.car import Car
 
 def repeat_string(s, n):
     """Repeat string s, n times, with spaces in between."""
@@ -56,18 +33,21 @@ def format_as_sentence(phrase):
 
 def run_tests():
     """Run the tests on the functions."""
+    # assert test with no message - used to see if the function works properly
     assert repeat_string("Python", 1) == "Python"
+    # the test below should fail
     assert repeat_string("hi", 2) == "hi hi"
 
+    # assert test with custom message,
+    # used to see if Car's init method sets the odometer correctly
+    # this should pass (no output)
     test_car = Car()
-    assert test_car.get_odometer() == 0, "Car does not set odometer correctly"
+    assert test_car.odometer == 0, "Car does not set odometer correctly"
 
+    # Assert statements for Car fuel
     default_car = Car()
     assert default_car.fuel == 0, "Car does not set default fuel value correctly"
     fuel_car = Car(fuel=10)
     assert fuel_car.fuel == 10, "Car does not set specified fuel value correctly"
 
 run_tests()
-
-# Uncomment the following line to run the doctests
-# doctest.testmod()
